@@ -1,60 +1,60 @@
-import { useState, useEffect, FormEvent, ChangeEvent, MouseEvent } from "react"
-import axios, { AxiosResponse, AxiosError } from "axios"
-import { Todo } from "../interfaces"
+import { useState, useEffect, FormEvent, ChangeEvent, MouseEvent } from 'react';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import { Todo } from '../interfaces';
 
 const TodoList = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [todos, setTodos] = useState<Todo[]>([])
-  const [error, setError] = useState<string>("")
-  const [newTodo, setNewTodo] = useState<string>("")
+  const [isLoading, setIsLoading] = useState(true);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [error, setError] = useState<string>('');
+  const [newTodo, setNewTodo] = useState<string>('');
 
   useEffect(() => {
     axios
-      .get<Todo[]>("http://localhost:8000/api/todos/", {
+      .get<Todo[]>('http://localhost:8000/api/todos/', {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
       .then((res: AxiosResponse) => {
-        setTodos(res.data)
-        setIsLoading(false)
+        setTodos(res.data);
+        setIsLoading(false);
       })
       .catch((error: AxiosError) => {
-        handleError(error)
-      })
-  }, [])
+        handleError(error);
+      });
+  }, []);
 
   useEffect(() => {
-    if (!error) return
+    if (!error) return;
     const timer = setTimeout(() => {
-      setError("")
-    }, 8000)
-    return () => clearTimeout(timer)
-  }, [error])
+      setError('');
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [error]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     axios
       .post(
-        "http://localhost:8000/api/todos/",
+        'http://localhost:8000/api/todos/',
         { title: newTodo },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       )
       .then((res: AxiosResponse) => {
-        setNewTodo("")
-        setTodos((prevTodos) => [...prevTodos, res.data])
+        setNewTodo('');
+        setTodos((prevTodos) => [...prevTodos, res.data]);
       })
       .catch((error: AxiosError) => {
-        handleError(error)
-      })
-  }
+        handleError(error);
+      });
+  };
 
   const checkTodo = (event: ChangeEvent<HTMLInputElement>, todo: Todo) => {
-    event.preventDefault()
+    event.preventDefault();
     axios
       .put(
         `http://localhost:8000/api/todos/${todo.id}/`,
@@ -64,7 +64,7 @@ const TodoList = () => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -75,46 +75,46 @@ const TodoList = () => {
               ? { ...prevTodo, completed: res.data.completed }
               : prevTodo
           )
-        )
+        );
       })
       .catch((error: AxiosError) => {
-        handleError(error, todo.id)
-      })
-  }
+        handleError(error, todo.id);
+      });
+  };
 
   const deleteTodo = (event: MouseEvent<HTMLElement>, id: number) => {
-    event.preventDefault()
+    event.preventDefault();
     axios
       .delete(`http://localhost:8000/api/todos/${id}/`)
       .then((res: AxiosResponse) => {
-        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
       })
       .catch((error: AxiosError) => {
-        handleError(error, id)
-      })
-  }
+        handleError(error, id);
+      });
+  };
 
   const handleError = (error: AxiosError, id?: number) => {
-    console.log(error)
-    if (error.code === "ERR_NETWORK") {
-      setIsLoading(true)
-      return setError("It looks like the backend server is down!")
+    console.log(error);
+    if (error.code === 'ERR_NETWORK') {
+      setIsLoading(true);
+      return setError('It looks like the backend server is down!');
     }
     if (error.response) {
       if (error.response.status === 404) {
-        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
         return setError(
-          "That todo no longer exists, it has been removed from the list."
-        )
+          'That todo no longer exists, it has been removed from the list.'
+        );
       }
       if (error.response.status === 400) {
         return setError(
-          "There was something wrong with that todo, perhaps it was too long (must be under 200 characters)."
-        )
+          'There was something wrong with that todo, perhaps it was too long (must be under 200 characters).'
+        );
       }
     }
-    return setError("An error occurred!")
-  }
+    return setError('An error occurred!');
+  };
 
   return (
     <>
@@ -153,7 +153,7 @@ const TodoList = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;
