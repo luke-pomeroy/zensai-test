@@ -8,8 +8,9 @@ function App() {
 
   return (
     <div className="App">
+      <h1>{showGql ? 'Apollo Client Component': 'Django Rest Framework Component'}</h1>
       <button onClick={() => setShowGql(!showGql)}>
-        {showGql ? 'Show API View' : 'Show GraphQL View'}
+        {showGql ? 'Show Django Rest Framework Component' : 'Show Apollo Client Component'}
       </button>
       {showGql ? <TodoListGraphql /> : <TodoList />}
     </div>
