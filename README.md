@@ -33,6 +33,10 @@ Install the backend dependencies:
 ```
 pip install -r requirements.txt 
 ```
+Migrate the database for todos app:
+```
+python3 manage.py migrate todos
+```
 In the 'client' directory install the frontend dependencies:
 ```
 npm install
