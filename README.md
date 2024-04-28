@@ -18,6 +18,7 @@ The task for this take-home test was to:
 ### Further ideas/solutions
 * The GraphQL query is refetched each time a todo is added/edited, it would be better to update the Apollo Client Cache than refresh each time.
 * Authentication could be implemented via REST Framework TokenAuthentication or SessionAuthentication; then the app modified so a user only sees their own todos.
+* The styling could be improved via TailwindCSS or a similar CSS library/framework.
 
 ## Installation
 In the 'server' directory, create a virtual environment:
@@ -37,15 +38,15 @@ In the 'client' directory install the frontend dependencies:
 npm install
 ```
 ## Execution
-To run the backend todos app tests:
+To run the backend tests, in the 'server' directory run:
 ```
 ./manage.py test
 ```
-To run the server, cd into the server directory and run:
+To run the server, in the 'server' directory run:
 ```
 python3 manage.py runserver
 ```
-To run the client, cd into the client directory and run:
+To run the client, in the 'client' directory run:
 ```
 npm start
 ```
