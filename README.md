@@ -1,7 +1,7 @@
 
 # Zensai coding test
 The task for this take-home test was to:
-* Use Django REST Framework to great a simple todo list, using a serializer and creating views to handle CRUD operations.
+* Use Django REST Framework to create a simple todo list, using a serializer and creating views to handle CRUD operations.
 * Implement a GraphQL API using Graphene Django for the todo list (optional).
 * Create a frontend for the Django Rest Framework API using Create React App, with a component to display the todo list items, and allow updating of the completion status directly from the component.
 * Integrate Apollo Client into the frontend to fetch and manage data from the GraphQL API implemented in Django (optional).
